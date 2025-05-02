@@ -134,7 +134,7 @@ public class CalculatorMain implements ActionListener {
             num1 = Double.parseDouble(textfield.getText());
             operator = '+';
             textfield.setText("");
-            historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " "));
+
             switche();
         }
 
@@ -145,7 +145,7 @@ public class CalculatorMain implements ActionListener {
                 num1 = Double.parseDouble(textfield.getText());
                 operator = '-';
                 textfield.setText("");
-                historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " "));
+
             }
             switche();
 
@@ -155,7 +155,7 @@ public class CalculatorMain implements ActionListener {
             num1 = Double.parseDouble(textfield.getText());
             operator = '*';
             textfield.setText("");
-            historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " "));
+
             switche();
         }
 
@@ -163,7 +163,7 @@ public class CalculatorMain implements ActionListener {
             num1 = Double.parseDouble(textfield.getText());
             operator = '/';
             textfield.setText("");
-            historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " "));
+
             switche();
         }
 
@@ -197,7 +197,8 @@ public class CalculatorMain implements ActionListener {
                 textfield.setText(String.valueOf(result));
             }
 
-            historyfield.setText(historyfield.getText().concat(String.valueOf(num2) + " = " + String.valueOf(result)));
+            historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " " + String.valueOf(num2) + " = " + String.valueOf(result)));
+            
             historySwitch = true;
             num1 = result;
         }

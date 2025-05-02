@@ -6,13 +6,16 @@ public class CalculatorMain implements ActionListener {
 
     JFrame frame;
     JTextField textfield;
+    JTextField historyfield;
     JButton[] numberButton = new JButton[10];
     JButton[] actionButton = new JButton[8];
     JButton addButton, subButton, mulButton, divButton;
     JButton decimalButton, eqButton, delButton, clrButton , negButton;
     JPanel panel ;
+    Boolean historySwitch = false;
 
     Font myFont = new Font("Arial", Font.BOLD,30);
+    Font myFont2 = new Font("Arial", Font.BOLD,10);
 
     double num1 = 0, num2 = 0, result = 0;
     int resultInt = 0;
@@ -26,9 +29,14 @@ public class CalculatorMain implements ActionListener {
         frame.setLayout(null);
 
         textfield = new JTextField();
-        textfield.setBounds(50, 25, 300, 50);
+        textfield.setBounds(50, 40, 300, 50);
         textfield.setFont(myFont);
         textfield.setEditable(false);
+
+        historyfield = new JTextField();
+        historyfield.setBounds(50, 15, 300, 20);
+        historyfield.setFont(myFont2);
+        historyfield.setEditable(false);
 
         addButton = new JButton("+");
         subButton = new JButton("-");
@@ -90,6 +98,7 @@ public class CalculatorMain implements ActionListener {
         frame.add(delButton);
         frame.add(clrButton);
         frame.add(textfield);
+        frame.add(historyfield);
         frame.setVisible(true);
 
     }
@@ -100,6 +109,13 @@ public class CalculatorMain implements ActionListener {
 
     }
 
+    private void switche() {
+        if (historySwitch) {
+            historyfield.setText(null);
+            historySwitch = false;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -107,6 +123,7 @@ public class CalculatorMain implements ActionListener {
             if(e.getSource() == numberButton[i]) {
                 textfield.setText(textfield.getText().concat(String.valueOf(i)));
             }
+            switche();
         }
 
         if (e.getSource() == decimalButton) {
@@ -117,6 +134,8 @@ public class CalculatorMain implements ActionListener {
             num1 = Double.parseDouble(textfield.getText());
             operator = '+';
             textfield.setText("");
+            historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " "));
+            switche();
         }
 
         if(e.getSource() == subButton) {
@@ -126,7 +145,9 @@ public class CalculatorMain implements ActionListener {
                 num1 = Double.parseDouble(textfield.getText());
                 operator = '-';
                 textfield.setText("");
+                historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " "));
             }
+            switche();
 
         }
 
@@ -134,12 +155,16 @@ public class CalculatorMain implements ActionListener {
             num1 = Double.parseDouble(textfield.getText());
             operator = '*';
             textfield.setText("");
+            historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " "));
+            switche();
         }
 
         if(e.getSource() == divButton) {
             num1 = Double.parseDouble(textfield.getText());
             operator = '/';
             textfield.setText("");
+            historyfield.setText(historyfield.getText().concat(String.valueOf(num1) + " " + operator + " "));
+            switche();
         }
 
         if(e.getSource() == eqButton) {
@@ -172,12 +197,14 @@ public class CalculatorMain implements ActionListener {
                 textfield.setText(String.valueOf(result));
             }
 
-
+            historyfield.setText(historyfield.getText().concat(String.valueOf(num2) + " = " + String.valueOf(result)));
+            historySwitch = true;
             num1 = result;
         }
 
         if (e.getSource() == clrButton) {
             textfield.setText("");
+            switche();
         }
 
         if (e.getSource() == delButton) {
